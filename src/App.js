@@ -12,12 +12,16 @@ function App() {
   }
   const handleWordSubmit = async () => {
     try {
-      const lowerCaseWord = cleanWord(word)
-      setWord(lowerCaseWord);
-      console.log(lowerCaseWord)
-      const response = await axios.post('/api/words', { word: lowerCaseWord });
-      setWordInfo(response.data);
-      setWord('');
+      if (word.trim() === '') {
+        alert('Please enter a word to analyze');
+      }else  {
+        const lowerCaseWord = cleanWord(word)
+        setWord(lowerCaseWord);
+        console.log(lowerCaseWord)
+        const response = await axios.post('/api/words', { word: lowerCaseWord });
+        setWordInfo(response.data);
+        setWord('');
+      }
     } catch (error) {
       console.error('Error fetching word info:', error);
     }
@@ -25,6 +29,10 @@ function App() {
 
   const handleTextSubmit = async () => {
     try {
+      if (text.trim() === '') {
+        alert('Please enter some text to analyze');
+        return;
+      }
       setWord(text.toLowerCase());
       const response = await axios.post('/api/text', { text });
       setUnknownWords(response.data);
@@ -53,7 +61,9 @@ function App() {
   {wordInfo && (
     <div className="p-4 mb-4 bg-white rounded shadow-lg">
       <p className="font-semibold text-xl mb-2">Word: {wordInfo.word}</p>
-      <p className="text-gray-700 text-base mb-2">Meaning: {wordInfo.meaning}</p>
+      <p className="font-sans text-justify leading-relaxed tracking-wide text-gray-700 bg-gray-100 p-4 rounded shadow-lg max-w-md mx-auto mb-4 break-words">
+  Meaning: {wordInfo.meaning}
+</p>
       <p className="text-gray-600 text-sm">Count: {wordInfo.count}</p>
     </div>
   )}
@@ -76,7 +86,7 @@ function App() {
       {unknownWords.map((info, index) => (
         <li key={index} className="mb-2">
           <span className="font-semibold">{info.word}</span>
-          <span> - Count: {info.count}, Meaning: {info.meaning}</span>
+          <span> - Count: {info.count}, {info.meaning}</span>
         </li>
       ))}
     </ul>
