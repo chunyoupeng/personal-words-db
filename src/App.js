@@ -7,9 +7,12 @@ function App() {
   const [wordInfo, setWordInfo] = useState(null);
   const [unknownWords, setUnknownWords] = useState([]);
 
+  function cleanWord(word) {
+    return word.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ").toLowerCase();
+  }
   const handleWordSubmit = async () => {
     try {
-      const lowerCaseWord = word.toLowerCase();
+      const lowerCaseWord = cleanWord(word)
       setWord(lowerCaseWord);
       console.log(lowerCaseWord)
       const response = await axios.post('/api/words', { word: lowerCaseWord });
