@@ -30,13 +30,13 @@ app.post('/api/words', async (req, res) => {
       res.json(updateResult.rows[0]);
     } else {
       // Insert new word with count 1
-      let meaning = getMeaning(word);
+      let meaning = await getMeaning(word);
       const insertResult = await pool.query(
         'INSERT INTO words(word, count, meaning) VALUES($1, $2, $3) RETURNING *',
         [word, 1, meaning]
       );
       res.json(insertResult.rows[0]);
-      console.log(res);
+      console.log(meaning);
     }
   } catch (error) {
     console.error('Error handling word submission:', error);
@@ -45,7 +45,7 @@ app.post('/api/words', async (req, res) => {
 });
 
 
-async function getMeaning(word){
+async function getMeaning(input_word){
 
     const _template = `
     Your task is to mimic the following interpretation style by giving explanations based on the given word.Only output the interpretation.
@@ -70,7 +70,9 @@ async function getMeaning(word){
 
     Interpretation:
     `;
-    console.log("Beging to get meaning of: " + word);
+    try {
+
+    console.log("Beging to get meaning of: " + input_word);
     const prompt = ChatPromptTemplate.fromMessages([
         ["human", _template],
       ]);
@@ -86,10 +88,13 @@ async function getMeaning(word){
       const chain = prompt.pipe(model).pipe(outputParser);
       
       const response = await chain.invoke({
-        topic: "word",
+        word: input_word,
       });
       console.log(response);
       return response;
+    } catch (error) {
+      console.error('Error getting meaning:', error);
+    }
 }
 // Endpoint to analyze text
 app.post('/api/text', async (req, res) => {
@@ -100,7 +105,7 @@ app.post('/api/text', async (req, res) => {
   for (const word of words) {
     const result = await pool.query('SELECT * FROM words WHERE word = $1', [word]);
     if (result.rows.length === 0) {
-      let meaning = getMeaning(word);
+      let meaning = await getMeaning(word);
       unknownWords.push({ word, count: 1, meaning });
     }
   }
