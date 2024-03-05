@@ -62,7 +62,7 @@ function App() {
     <div className="p-4 mb-4 bg-white rounded shadow-lg">
       <p className="font-semibold text-xl mb-2">Word: {wordInfo.word}</p>
       <p className="font-sans text-justify leading-relaxed tracking-wide text-gray-700 bg-gray-100 p-4 rounded shadow-lg max-w-md mx-auto mb-4 break-words">
-  Meaning: {wordInfo.meaning}
+   {wordInfo.meaning}
 </p>
       <p className="text-gray-600 text-sm">Count: {wordInfo.count}</p>
     </div>
