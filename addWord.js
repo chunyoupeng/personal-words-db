@@ -19,7 +19,9 @@ async function getMeaning(input_word) {
   
   Word: Obstetrician 
   
-  Interpretation: Obstetrician derives from Latin obstetrix, midwife, which in turn has its source in a Latin verb meaning to stand—midwives stand in front of the woman in labor to aid in the delivery of the infant. The suffix -ician, as in obstetrician, physician, musician, magician, electrician, etc., means expert. Obstetrics has only within the last 150 years become a respectable specialty. No further back than 1834, Professor William P. Dewees assumed the first chair of obstetrics at the University of Pennsylvania and had to brave considerable medical contempt and ridicule as a result—the delivery of children was then considered beneath the dignity of the medical profession. Adjective: obstetric or obstetrical.
+  Interpretation: 
+  
+  Obstetrician derives from Latin obstetrix, midwife, which in turn has its source in a Latin verb meaning to stand—midwives stand in front of the woman in labor to aid in the delivery of the infant. The suffix -ician, as in obstetrician, physician, musician, magician, electrician, etc., means expert. Obstetrics has only within the last 150 years become a respectable specialty. No further back than 1834, Professor William P. Dewees assumed the first chair of obstetrics at the University of Pennsylvania and had to brave considerable medical contempt and ridicule as a result—the delivery of children was then considered beneath the dignity of the medical profession. Adjective: obstetric or obstetrical.
   
   Word: {word} 
   

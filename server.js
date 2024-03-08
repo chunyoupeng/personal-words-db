@@ -48,24 +48,22 @@ app.post('/api/words', async (req, res) => {
 async function getMeaning(input_word){
 
     const _template = `
-    Your task is to mimic the following interpretation style by giving explanations based on the given word.Only output the interpretation.
+    Your task is to mimic the following interpretation style by giving explanations of the  word and its related words like below based on the given word.Only output the interpretation.
 
-    Word: Obstetrician 
+    Word: Pediatrician 
 
-    Interpretation: 
-    Obstetrician derives from Latin obstetrix, midwife, which in turn has its
-    source in a Latin verb meaning to stand—midwives stand in front of the
-    woman in labor to aid in the delivery of the infant. 
-    The suffix -ician, as in obstetrician, physician, musician, magician,
-    electrician, etc., means expert. 
-    Obstetrics has only within the last 150 years become a
-    respectable specialty. No further back than 1834, Professor William P.
-    Dewees assumed the first chair of obstetrics at the University of
-    Pennsylvania and had to brave considerable medical contempt and
-    ridicule as a result—the delivery of children was then considered beneath
-    the dignity of the medical profession. 
-    Adjective: obstetric or obstetrical 
+    Interpretation:
 
+    **Pediatrician** is a combination of Greek *paidos*, child; *iatreia*, medical healing; and *-ician*, expert.
+
+    **Pediatrics** (pee-dee-AT′-riks), then, is by etymology the medical healing of a child. Adjective: pediatric (pee-dee-AT′-rik). (The *ped-* you see in words like pedestal, pedal, and pedestrian is from the Latin *pedis*, foot, and despite the identical spelling in English has no relationship to Greek *paidos*.)
+    
+    **Pedagogy** (PED-Ə-gō′-jee), which combines *paidos* with *agogos*, leading, is, etymologically, the leading of children. And to what do you lead them? To learning, to development, to growth, to maturity. From the moment of birth, infants are led by adults—they are taught, first by parents and then by teachers, to be self-sufficient, to fit into the culture in which they are born. Hence, pedagogy, which by derivation means the leading of a child, refers actually to the principles and methods of teaching. College students majoring in education take certain standard pedagogy courses: the history of education; educational psychology; the psychology of adolescents; principles of teaching; etc. Adjective: pedagogical (ped-Ə-GOJ′-Ə-kƏl).
+    
+    A **pedagogue** (PED′-Ə-gog) is versed in pedagogy. But pedagogue has an unhappy history. From its original, neutral meaning of teacher, it has deteriorated to the point where it refers, today, to a narrow-minded, strait-laced, old-fashioned, dogmatic teacher. It is a word of contempt and should be used with caution.
+    
+    Like pedagogue, **demagogue** (DEM′-Ə-gog) has also deteriorated in meaning. By derivation a leader (*agogos*) of the people (*demos*), a demagogue today is actually one who attempts, in essence, to mislead the people, a politician who foments discontent among the masses, rousing them to fever pitch by wild oratory, in an attempt to be voted into office. Once elected, demagogues use political power to further their own personal ambitions or fortunes. Many “leaders” of the past and present, in countries around the world, have been accused of **demagoguery** (dem-Ə-GOG′-Ə-ree). Adjective: demagogic (dem-Ə-GOJ′-ik).
+    
     Word: {word}
 
     Interpretation:

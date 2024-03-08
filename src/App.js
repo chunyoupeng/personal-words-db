@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Markdown from "react-markdown"
 
 function App() {
   const [word, setWord] = useState('');
@@ -59,14 +60,18 @@ function App() {
     </button>
   </div>
   {wordInfo && (
-    <div className="p-4 mb-4 bg-white rounded shadow-lg">
-      <p className="font-semibold text-xl mb-2">Word: {wordInfo.word}</p>
-      <p className="font-sans text-justify leading-relaxed tracking-wide text-gray-700 bg-gray-100 p-4 rounded shadow-lg max-w-md mx-auto mb-4 break-words">
-   {wordInfo.meaning}
-</p>
-      <p className="text-gray-600 text-sm">Count: {wordInfo.count}</p>
+  <div className="p-6 mb-6 bg-white rounded-xl shadow-xl transition duration-300 ease-in-out hover:shadow-2xl">
+    <div className="border-b border-gray-200 mb-4">
+      <p className="font-bold text-2xl text-gray-800 mb-3">Word: {wordInfo.word}</p>
     </div>
-  )}
+    <div className="prose max-w-none">
+      <Markdown>{wordInfo.meaning}</Markdown>
+    </div>
+    <div className="mt-4">
+      <p className="text-gray-500 text-sm">Count: {wordInfo.count}</p>
+    </div>
+  </div>
+)}
   <div className="mb-4">
     <textarea
       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
