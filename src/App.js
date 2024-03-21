@@ -89,6 +89,7 @@ function App() {
 {
   unknownWords.length > 0 && (
     <div className="max-w-xl mx-auto mt-5">
+      <p className="font-bold text-lg text-gray-800 mb-3">Length: {unknownWords.length}</p>
       <ul className="divide-y divide-gray-200">
         {unknownWords.map((info, index) => (
           <li key={index} className="p-4 hover:bg-gray-50 transition duration-150 ease-in-out">
