@@ -86,16 +86,21 @@ function App() {
       Analyze Text
     </button>
   </div>
-  {unknownWords.length > 0 && (
-    <ul className="list-disc pl-5">
-      {unknownWords.map((info, index) => (
-        <li key={index} className="mb-2">
-          <span className="font-semibold">{info.word}</span>
-          <span> - Count: {info.count}, {info.meaning}</span>
-        </li>
-      ))}
-    </ul>
-  )}
+{
+  unknownWords.length > 0 && (
+    <div className="max-w-xl mx-auto mt-5">
+      <ul className="divide-y divide-gray-200">
+        {unknownWords.map((info, index) => (
+          <li key={index} className="p-4 hover:bg-gray-50 transition duration-150 ease-in-out">
+            <span className="font-bold text-indigo-600">{info.word}</span>
+            <span className="block text-xs font-medium text-gray-500 mt-2">Count: {info.count}</span>
+            <span className="block text-sm text-gray-700 mt-1"><Markdown>{info.meaning}</Markdown></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 </div>
 
   );

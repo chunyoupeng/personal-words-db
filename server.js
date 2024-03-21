@@ -1,5 +1,6 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { ChatOllama } from "@langchain/community/chat_models/ollama";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -7,6 +8,8 @@ import pg from 'pg';
 const { Pool } = pg;
 
 const app = express();
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 const port = process.env.PORT || 3001;
 
 const pool = new Pool({
@@ -74,12 +77,16 @@ async function getMeaning(input_word){
     const prompt = ChatPromptTemplate.fromMessages([
         ["human", _template],
       ]);
-      const model = new ChatOpenAI({
-        openAIApiKey: "sk-zmfy7bJcsifeLNhaB0215d03FbE14e1cB102Df492d4231D8",
-        modelName: "gpt-4-1106-preview",
-        configuration: {
-          baseURL: "https://aiapi.xing-yun.cn/v1/",
-        }
+      // const model = new ChatOpenAI({
+      //   openAIApiKey: "sk-zmfy7bJcsifeLNhaB0215d03FbE14e1cB102Df492d4231D8",
+      //   modelName: "gpt-4-1106-preview",
+      //   configuration: {
+      //     baseURL: "https://aiapi.xing-yun.cn/v1/",
+      //   }
+      // });
+      const model = new ChatOllama({
+        baseUrl: "http://localhost:11434",
+        model: "mixtral"
       });
       const outputParser = new StringOutputParser();
       
@@ -97,7 +104,7 @@ async function getMeaning(input_word){
 // Endpoint to analyze text
 app.post('/api/text', async (req, res) => {
   const { text } = req.body;
-  const words = text.split(/\s+/);
+  const words = text.toLowerCase().match(/\b(\w+)\b/g);
   const unknownWords = [];
 
   for (const word of words) {
@@ -105,6 +112,10 @@ app.post('/api/text', async (req, res) => {
     if (result.rows.length === 0) {
       let meaning = await getMeaning(word);
       unknownWords.push({ word, count: 1, meaning });
+      await pool.query(
+        'INSERT INTO words(word, count, meaning) VALUES($1, $2, $3) RETURNING *',
+        [word, 1, meaning]
+      );
     }
   }
 
