@@ -116,6 +116,9 @@ app.post('/api/text', async (req, res) => {
         'INSERT INTO words(word, count, meaning) VALUES($1, $2, $3) RETURNING *',
         [word, 1, meaning]
       );
+    } else if (result.rows[0].count < 5) {
+      await pool.query('UPDATE words SET count = count + 1 WHERE word = $1', [word]);
+      unknownWords.push({ word, count: result.rows[0].count + 1, meaning: result.rows[0].meaning });
     }
   }
 
